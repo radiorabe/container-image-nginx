@@ -1,0 +1,18 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: nginx
+  description: nginx in UBI9 Minimal
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: radiorabe/container-image-nginx
+  links:
+    - url: https://nginx.org/en/docs/
+      title: nginx Manual
+spec:
+  type: container
+  lifecycle: experimental
+  owner: it-reaktion
+  dependsOn:
+    - component:default/rabe-ubi9-minimal
