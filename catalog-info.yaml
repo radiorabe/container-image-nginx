@@ -16,3 +16,4 @@ spec:
   owner: it-reaktion
   dependsOn:
     - component:default/rabe-ubi9-minimal
+    - component:default/zabbix-template-Nginx_by_HTTP
