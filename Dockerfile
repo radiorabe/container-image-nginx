@@ -9,9 +9,10 @@ RUN    mkdir -p /mnt/rootfs \
     && microdnf module enable nginx:$NGINX_VERSION -y \
        --releasever 9 \
        --installroot /mnt/rootfs \
+       --nodocs \
        --noplugins \
        --config /etc/dnf/dnf.conf \
-       --setopt install_weak_deps=0 --nodocs \
+       --setopt install_weak_deps=0 \
        --setopt cachedir=/var/cache/dnf \
        --setopt reposdir=/etc/yum.repos.d \
        --setopt varsdir=/etc/yum.repos.d \
@@ -19,9 +20,10 @@ RUN    mkdir -p /mnt/rootfs \
     && microdnf install -y \
        --releasever 9 \
        --installroot /mnt/rootfs \
+       --nodocs \
        --noplugins \
        --config /etc/dnf/dnf.conf \
-       --setopt install_weak_deps=0 --nodocs \
+       --setopt install_weak_deps=0 \
        --setopt cachedir=/var/cache/dnf \
        --setopt reposdir=/etc/yum.repos.d \
        --setopt varsdir=/etc/yum.repos.d \
@@ -46,19 +48,18 @@ RUN    mkdir -p /mnt/rootfs \
 
 FROM scratch as app
 
-ENV NGINX_VERSION=1.22 \
+ENV PLATFORM=el9 \
+    SUMMARY="Nginx Image for RaBe" \
+    APP_ROOT=/opt/app-root \
+    STI_SCRIPTS_PATH=/usr/libexec/s2i \
+    STI_SCRIPTS_URL=image:///usr/libexec/s2i \
+    NGINX_VERSION=1.22 \
     NGINX_CONF_PATH=/etc/nginx/nginx.conf \
     NGINX_CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/nginx \
     NGINX_LOG_PATH=/var/log/nginx \
-    STI_SCRIPTS_PATH=/usr/libexec/s2i \
-    APP_ROOT=/opt/app-root \
-    SUMMARY="Nginx Image for RaBe" \
-    PLATFORM=el9
-
-ENV NGINX_CONFIGURATION_PATH=${APP_ROOT}/etc/nginx.d \
-    NGINX_DEFAULT_CONF_PATH=${APP_ROOT}/etc/nginx.default.d \
-    NGINX_APP_ROOT=${APP_ROOT} \
-    STI_SCRIPTS_URL=image://${STI_SCRIPTS_PATH}
+    NGINX_CONFIGURATION_PATH=/opt/app-root/etc/nginx.d \
+    NGINX_DEFAULT_CONF_PATH=/opt/app-root/etc/nginx.default.d \
+    NGINX_APP_ROOT=/opt/app-root
 
 COPY --from=build /mnt/rootfs/ /
 COPY --from=upstream ${STI_SCRIPTS_PATH} ${STI_SCRIPTS_PATH}
