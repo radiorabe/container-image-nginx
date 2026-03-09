@@ -1,5 +1,5 @@
-FROM quay.io/sclorg/nginx-122-micro-c9s:20260128 AS upstream
-FROM ghcr.io/radiorabe/ubi9-minimal:0.11.3 AS build
+FROM quay.io/sclorg/nginx-122-micro-c9s:20260304 AS upstream
+FROM ghcr.io/radiorabe/ubi9-minimal:0.11.4 AS build
 
 ENV APP_ROOT=/opt/app-root
 
@@ -46,7 +46,7 @@ RUN    mkdir -p /mnt/rootfs \
        /mnt/rootfs/var/log/dnf* \
        /mnt/rootfs/var/log/yum.*
 
-FROM scratch as app
+FROM scratch AS app
 
 ENV PLATFORM=el9 \
     SUMMARY="Nginx Image for RaBe" \
