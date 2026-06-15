@@ -1,5 +1,5 @@
-FROM quay.io/sclorg/nginx-122-micro-c9s:20260311 AS upstream
-FROM ghcr.io/radiorabe/ubi9-minimal:0.11.4 AS build
+FROM quay.io/sclorg/nginx-122-micro-c9s:20260311@sha256:e576e584bd5d04cbba14b838b589dc250fabfb4053b4f3d2b87dcc59e6cefc3b AS upstream
+FROM ghcr.io/radiorabe/ubi9-minimal:0.11.4@sha256:9d9f4695ed31b1856b258a1081abd15a99e1e62a7935b421a3c2e46bbdf62652 AS build
 
 ENV APP_ROOT=/opt/app-root
 
